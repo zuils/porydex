@@ -34,18 +34,20 @@ foreach ($tables as $key => $table) {
 	// Create the table from its schema definition.
 	$database->exec(file_get_contents(__DIR__ . "/../sql/schema/dex/$table.sql"));
 
+	$projectRoot = str_replace('\\', '/', realpath(__DIR__ . '/..'));
+
 	if (isset($files)) {
-		// This table's data is split across multiple files.
-		$files = $tables[$table];
-		foreach ($files as $file) {
-			$file = __DIR__ . "/../data/$file.csv";
-			importFile($database, $table, $file);
-			echo "Loaded file $file\n";
-		}
+	    // This table's data is split across multiple files.
+	    $files = $tables[$table];
+	    foreach ($files as $file) {
+	        $file = $projectRoot . '/data/' . $file . '.csv';
+	        importFile($database, $table, $file);
+	        echo "Loaded file $file\n";
+	    }
 	} else {
-		// This table's data is contained within a single file.
-		$file = __DIR__ . "/../data/$table.csv";
-		importFile($database, $table, $file);
+	    // This table's data is contained within a single file.
+	    $file = $projectRoot . '/data/' . $table . '.csv';
+	    importFile($database, $table, $file);
 	}
 
 	echo "Loaded $table\n";

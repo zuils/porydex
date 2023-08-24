@@ -5,7 +5,7 @@ require 'recipe/common.php';
 
 // Config
 
-set('repository', 'https://jpirnat@github.com/jpirnat/dex.git');
+set('repository', 'https://github.com/zuils/porydex');
 
 add('shared_files', []);
 add('shared_dirs', []);
